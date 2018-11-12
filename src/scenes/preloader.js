@@ -12,6 +12,7 @@ export class Preloader extends Scene {
     this.load.image('treehouse', 'assets/treehouse.png')
     this.load.image('crate', 'assets/crate.png')
     this.load.spritesheet('player', 'assets/player.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.audio('theme', ['assets/voyager.wav'])
   }
 
   create() {

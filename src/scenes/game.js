@@ -16,9 +16,13 @@ export class Game extends Scene {
     this.player = null
     this.cursors = null
     this.crates = null
+    this.music = null
   }
 
   create() {
+    this.music = this.sound.add('theme')
+    this.music.play();
+
     this.physics.world.bounds.width = 2400;
     this.physics.world.bounds.height = 600;
 
