@@ -22,11 +22,12 @@ export class Game extends Scene {
     this.physics.world.bounds.width = 2400;
     this.physics.world.bounds.height = 600;
 
-
     this.buffers = this.physics.add.staticGroup();
     this.buffers.create(1200, 600, 'buffer');
+    this.buffers.create(1600, 440, 'buffer2')
 
     this.mountains = this.add.image(1200, 300, 'mountains')
+    this.treehouse = this.add.image(800, 350, 'treehouse')
 
     this.player = this.physics.add.sprite(50, 560, 'player');
     this.player.setCollideWorldBounds(true)
@@ -62,15 +63,16 @@ export class Game extends Scene {
 
   update() {
 
+
     if (this.cursors.left.isDown) 
     {
-      this.player.setVelocityX(-160);
+      this.player.setVelocityX(-300);
       this.player.anims.play('left', true);
     }
 
     else if (this.cursors.right.isDown) 
     {
-      this.player.setVelocityX(160);
+      this.player.setVelocityX(300);
       this.player.anims.play('right', true);
     }
 
@@ -82,7 +84,7 @@ export class Game extends Scene {
 
     if (this.cursors.space.isDown && this.player.body.touching.down) 
     {
-      this.player.setVelocityY(-330);
+      this.player.setVelocityY(-400);
     }
   }
 }
