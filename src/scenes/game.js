@@ -63,6 +63,12 @@ export class Game extends Scene {
       repeat: -1
     });
 
+    this.anims.create({
+      key: 'faceright',
+      frames: [{ key: 'player', frame: 5 }],
+      frameRate: 20
+    });
+
   }
 
   update() {
@@ -70,13 +76,13 @@ export class Game extends Scene {
 
     if (this.cursors.left.isDown) 
     {
-      this.player.setVelocityX(-300);
+      this.player.setVelocityX(-160);
       this.player.anims.play('left', true);
     }
 
     else if (this.cursors.right.isDown) 
     {
-      this.player.setVelocityX(300);
+      this.player.setVelocityX(160);
       this.player.anims.play('right', true);
     }
 
