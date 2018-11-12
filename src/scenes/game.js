@@ -13,9 +13,9 @@ export class Game extends Scene {
       }
     })
     this.buffers = null
-    this.mountains = null
     this.player = null
     this.cursors = null
+    this.crates = null
   }
 
   create() {
@@ -29,12 +29,16 @@ export class Game extends Scene {
     this.mountains = this.add.image(1200, 300, 'mountains')
     this.treehouse = this.add.image(800, 350, 'treehouse')
 
-    this.player = this.physics.add.sprite(50, 560, 'player');
-    this.player.setCollideWorldBounds(true)
+    this.crates = this.physics.add.group()
+    this.crates.create(2200, 545, 'crate').setDrag(10000,0).setCollideWorldBounds(true)
+
+    this.player = this.physics.add.sprite(50, 560, 'player').setCollideWorldBounds(true)
+
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    this.physics.world.enable(this.player)
     this.physics.add.collider(this.player, this.buffers)
+    this.physics.add.collider(this.player, this.crates)
+    this.physics.add.collider(this.crates, this.buffers)
 
     this.cameras.main.setBounds(0, 0, 2400, 600);
     this.cameras.main.startFollow(this.player)
@@ -84,7 +88,7 @@ export class Game extends Scene {
 
     if (this.cursors.space.isDown && this.player.body.touching.down) 
     {
-      this.player.setVelocityY(-400);
+      this.player.setVelocityY(-300);
     }
   }
 }
