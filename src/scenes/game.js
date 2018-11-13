@@ -17,11 +17,16 @@ export class Game extends Scene {
     this.cursors = null
     this.crates = null
     this.music = null
+    this.scroll = null
+    this.smallscroll = null
+
+    this.getScroll = false
   }
 
   create() {
     this.music = this.sound.add('theme')
-    this.music.play();
+    this.music.loop = true
+    this.music.play()
 
     this.physics.world.bounds.width = 2400;
     this.physics.world.bounds.height = 600;
@@ -36,6 +41,9 @@ export class Game extends Scene {
     this.crates = this.physics.add.group()
     this.crates.create(2200, 545, 'crate').setDrag(10000,0).setCollideWorldBounds(true)
 
+    this.smallscroll = this.physics.add.group()
+    this.smallscroll.create(1550, 300, 'smallscroll')
+
     this.player = this.physics.add.sprite(50, 560, 'player').setCollideWorldBounds(true)
 
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -43,6 +51,9 @@ export class Game extends Scene {
     this.physics.add.collider(this.player, this.buffers)
     this.physics.add.collider(this.player, this.crates)
     this.physics.add.collider(this.crates, this.buffers)
+    this.physics.add.collider(this.smallscroll, this.buffers)
+
+    this.getScroll = this.physics.add.overlap(this.player, this.scroll, kindfist.bind(this))
 
     this.cameras.main.setBounds(0, 0, 2400, 600);
     this.cameras.main.startFollow(this.player)
@@ -73,6 +84,13 @@ export class Game extends Scene {
       frameRate: 20
     });
 
+  }
+
+  kindfist(){
+    if(!getScroll){
+      this.smallscroll.destroy()
+      this.scene.start('kindfist')
+    }
   }
 
   update() {
