@@ -39,9 +39,9 @@ export class ToTown extends Scene {
     this.mountains = this.add.image(1200, 300, 'mountains') 
     this.treehouse = this.add.image(800, 350, 'treehouse')
 
-    this.player = this.physics.add.sprite(1550, 410, 'player').setCollideWorldBounds(true)
-
     this.guard = this.physics.add.sprite(2200, 410, 'guard').setDrag(10000, 0).setCollideWorldBounds(true)
+
+    this.player = this.physics.add.sprite(1550, 410, 'player').setCollideWorldBounds(true)
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
