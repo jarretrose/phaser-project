@@ -56,7 +56,7 @@ export class ToTown extends Scene {
 
     this.physics.add.overlap(this.player, this.gate, this.throughGate, null, this)
 
-    this.haltText = this.add.text(2000, 400, 'I already TOLD YOU! YOU CANNOT PASS!\n(press DOWN ARROW to use\nthe KIND FIST BUMP!)', { fontSize: '20px', fontFamily: 'Arial', color: 'black', backgroundColor: 'gray', });
+    this.haltText = this.add.text(2000, 400, 'HALT! You cannot pass!\n(press DOWN ARROW to use\nthe KIND FIST BUMP!)', { fontSize: '20px', fontFamily: 'Arial', color: 'black', backgroundColor: 'gray', });
 
     this.haltText.visible = false
 
