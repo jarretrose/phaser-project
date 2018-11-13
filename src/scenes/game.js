@@ -45,7 +45,7 @@ export class Game extends Scene {
 
     this.smallscroll = this.physics.add.image(1550, 300, 'smallscroll')
 
-    this.guard = this.physics.add.sprite(2550, 410, 'guard').setDrag(10000, 0).setCollideWorldBounds(true)
+    this.guard = this.physics.add.sprite(2400, 410, 'guard').setDrag(10000, 0).setCollideWorldBounds(true)
 
     this.player = this.physics.add.sprite(50, 560, 'player').setCollideWorldBounds(true)
 

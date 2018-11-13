@@ -15,6 +15,8 @@ export class KindFist extends Scene {
 
     this.cameras.main.setBounds(0, 0, 800, 600);
     this.cameras.main.fadeIn(2000)
+
+    this.startText = this.add.text(220, 560, 'Press Space to Continue!', { fontSize: '32px', fontFamily: 'Arial', color: 'yellow'});
   }
 
   update() {

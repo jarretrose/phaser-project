@@ -21,7 +21,9 @@ export class ToTown extends Scene {
     this.gate = null
     this.cameras = null
 
+    this.guardSaidNo = false
     this.guardSaidYes = false
+
   }
 
   create() {
@@ -39,7 +41,7 @@ export class ToTown extends Scene {
     this.mountains = this.add.image(1200, 300, 'mountains') 
     this.treehouse = this.add.image(800, 350, 'treehouse')
 
-    this.guard = this.physics.add.sprite(2200, 410, 'guard').setDrag(10000, 0).setCollideWorldBounds(true)
+    this.guard = this.physics.add.sprite(2400, 410, 'guard').setDrag(10000, 0).setCollideWorldBounds(true)
 
     this.player = this.physics.add.sprite(1550, 410, 'player').setCollideWorldBounds(true)
 
@@ -47,7 +49,7 @@ export class ToTown extends Scene {
 
     this.physics.add.collider(this.player, this.buffers)
     this.physics.add.collider(this.guard, this.buffers)
-    this.guardCollider = this.physics.add.collider(this.player, this.guard, this.guardYes, null, this)
+    this.guardCollider = this.physics.add.collider(this.player, this.guard, this.guardPrevent, null, this)
 
     this.physics.add.overlap(this.player, this.gate, this.throughGate, null, this)
 
@@ -57,21 +59,30 @@ export class ToTown extends Scene {
 
 
   }
-
-  guardYes(player, guard) { 
-    if (!this.guardSaidYes) {
-      console.log('OK, you can go through.')
-      this.guardSaidYes = true;
-      this.guardCollider.destroy()
+ 
+  guardPrevent(player, guard) {
+    if (!this.guardSaidYes && !this.guardSaidNo) {
+      console.log('I already told you! You cannot pass!')
+      console.log('Press Space to activate KIND FIST BUMP!')
+      this.guardSaidNo = true
     }
   }
 
   throughGate(player, gate) {
-    console.log('I am overlapping with the gate')
-    this.scene.start('town')
+    if (this.guardSaidYes) {
+      this.scene.start('town')
+    }
   }
 
   update() {
+
+    if (this.cursors.space.isDown && this.guardSaidNo && !this.guardSaidYes) {
+      console.log('That was really KIND of you! I guess I can let you in!')
+      this.guardSaidYes = true
+      this.guardCollider.destroy()
+      console.log('You know what, I think I can let someone as nice as you pass. Have a nice day!')
+    }
+
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-160);
       this.player.anims.play('left', true);
@@ -87,7 +98,7 @@ export class ToTown extends Scene {
       this.player.anims.play('turn');
     }
 
-    if (this.cursors.space.isDown && this.player.body.touching.down) {
+    if (this.cursors.up.isDown && this.player.body.touching.down) {
       this.player.setVelocityY(-300);
     }
 
