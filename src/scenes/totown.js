@@ -21,8 +21,11 @@ export class ToTown extends Scene {
     this.gate = null
     this.cameras = null
 
-    this.guardSaidNo = false
+    // this.guardSaidNo = false
     this.guardSaidYes = false
+    // this.seeFistText = false
+
+    this.dontMove = false
 
   }
 
@@ -41,7 +44,7 @@ export class ToTown extends Scene {
     this.mountains = this.add.image(1200, 300, 'mountains') 
     this.treehouse = this.add.image(800, 350, 'treehouse')
 
-    this.guard = this.physics.add.sprite(2400, 410, 'guard').setDrag(10000, 0).setCollideWorldBounds(true)
+    this.guard = this.physics.add.sprite(2350, 410, 'guard').setDrag(10000, 0).setCollideWorldBounds(true)
 
     this.player = this.physics.add.sprite(1550, 410, 'player').setCollideWorldBounds(true)
 
@@ -53,6 +56,15 @@ export class ToTown extends Scene {
 
     this.physics.add.overlap(this.player, this.gate, this.throughGate, null, this)
 
+    this.haltText = this.add.text(2000, 400, 'I already TOLD YOU! YOU CANNOT PASS!\n(press DOWN ARROW to use\nthe KIND FIST BUMP!)', { fontSize: '20px', fontFamily: 'Arial', color: 'black', backgroundColor: 'gray', });
+
+    this.haltText.visible = false
+
+
+    this.fistText = this.add.text(2000, 400, 'That was really KIND of you!\nGo ahead, you can pass!\nAnd have a nice day!\n(press space to continue)', { fontSize: '20px', fontFamily: 'Arial', color: 'yellow', backgroundColor: 'gray'});
+
+    this.fistText.visible = false
+
     this.cameras.main.setBounds(0, 0, 2400, 600);
     this.cameras.main.fadeIn(2000)
     this.cameras.main.startFollow(this.player)
@@ -61,10 +73,11 @@ export class ToTown extends Scene {
   }
  
   guardPrevent(player, guard) {
-    if (!this.guardSaidYes && !this.guardSaidNo) {
-      console.log('I already told you! You cannot pass!')
-      console.log('Press Space to activate KIND FIST BUMP!')
+    if (!this.guardSaidNo) {
+      this.dontMove = true
       this.guardSaidNo = true
+      this.haltText.visible = true
+      this.guardCollider.destroy()
     }
   }
 
@@ -76,40 +89,24 @@ export class ToTown extends Scene {
 
   update() {
 
-    if (this.cursors.space.isDown && this.guardSaidNo && !this.guardSaidYes) {
-      console.log('That was really KIND of you! I guess I can let you in!')
+    if (this.cursors.space.isDown && this.fistText.visible) {
+      this.fistText.visible = false
+      this.dontMove = false
       this.guardSaidYes = true
-      this.guardCollider.destroy()
-      console.log('You know what, I think I can let someone as nice as you pass. Have a nice day!')
     }
 
-    if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-160);
-      this.player.anims.play('left', true);
+    if (this.cursors.down.isDown && this.haltText.visible) {
+        this.haltText.visible = false
+        this.fistText.visible = true
     }
 
-    else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(160);
-      this.player.anims.play('right', true);
-    }
-
-    else {
-      this.player.setVelocityX(0);
-      this.player.anims.play('turn');
-    }
-
-    if (this.cursors.up.isDown && this.player.body.touching.down) {
-      this.player.setVelocityY(-300);
-    }
-
-    // ***** DEV SPEED
-    // if (this.cursors.left.isDown) {
-    //   this.player.setVelocityX(-500);
+    // if (this.cursors.left.isDown && !this.dontMove) {
+    //   this.player.setVelocityX(-160);
     //   this.player.anims.play('left', true);
     // }
 
-    // else if (this.cursors.right.isDown) {
-    //   this.player.setVelocityX(500);
+    // else if (this.cursors.right.isDown && !this.dontMove) {
+    //   this.player.setVelocityX(160);
     //   this.player.anims.play('right', true);
     // }
 
@@ -118,9 +115,29 @@ export class ToTown extends Scene {
     //   this.player.anims.play('turn');
     // }
 
-    // if (this.cursors.space.isDown && this.player.body.touching.down) {
-    //   this.player.setVelocityY(-600);
+    // if (this.cursors.up.isDown && this.player.body.touching.down && !this.dontMove) {
+    //   this.player.setVelocityY(-300);
     // }
+
+    // ***** DEV SPEED
+    if (this.cursors.left.isDown && !this.dontMove) {
+      this.player.setVelocityX(-1000);
+      this.player.anims.play('left', true);
+    }
+
+    else if (this.cursors.right.isDown && !this.dontMove) {
+      this.player.setVelocityX(1000);
+      this.player.anims.play('right', true);
+    }
+
+    else {
+      this.player.setVelocityX(0);
+      this.player.anims.play('turn');
+    }
+
+    if (this.cursors.up.isDown && this.player.body.touching.down && !this.dontMove) {
+      this.player.setVelocityY(-600);
+    }
   }
 }
 

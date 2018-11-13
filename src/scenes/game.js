@@ -22,6 +22,8 @@ export class Game extends Scene {
     this.guard = null
 
     this.guardSaidNo = false
+
+    this.dontMove = false
   }
 
   create() {
@@ -45,7 +47,7 @@ export class Game extends Scene {
 
     this.smallscroll = this.physics.add.image(1550, 300, 'smallscroll')
 
-    this.guard = this.physics.add.sprite(2400, 410, 'guard').setDrag(10000, 0).setCollideWorldBounds(true)
+    this.guard = this.physics.add.sprite(2350, 410, 'guard').setDrag(10000, 0).setCollideWorldBounds(true)
 
     this.player = this.physics.add.sprite(50, 560, 'player').setCollideWorldBounds(true)
 
@@ -64,12 +66,18 @@ export class Game extends Scene {
     this.cameras.main.fadeIn(2000)
     this.cameras.main.startFollow(this.player)
 
+    this.haltText = this.add.text(2100, 400, 'HALT! You cannot pass!\n(press space to continue)', { fontSize: '20px', fontFamily: 'Arial', color: 'black', backgroundColor: 'gray', });
+    
+    this.haltText.visible = false
+
   }
 
   guardNo(player, guard) {
     if (!this.guardSaidNo) {
-      console.log('Sorry, you cannot pass.')
+      this.haltText.visible = true
+      console.log('Halt!!! You cannot pass.')
       this.guardSaidNo = true;
+      this.dontMove = true
     }
   }
 
@@ -79,33 +87,19 @@ export class Game extends Scene {
   }
 
   update() {
-    if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-160);
-      this.player.anims.play('left', true);
+
+    if (this.cursors.space.isDown  && this.dontMove) {
+      this.haltText.visible = false
+      this.dontMove = false
     }
 
-    else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(160);
-      this.player.anims.play('right', true);
-    }
-
-    else {
-      this.player.setVelocityX(0);
-      this.player.anims.play('turn');
-    }
-
-    if (this.cursors.up.isDown && this.player.body.touching.down) {
-      this.player.setVelocityY(-300);
-    }
-
-    // ***** DEV SPEED
-    // if (this.cursors.left.isDown) {
-    //   this.player.setVelocityX(-500);
+    // if (this.cursors.left.isDown && !this.dontMove) {
+    //   this.player.setVelocityX(-160);
     //   this.player.anims.play('left', true);
     // }
 
-    // else if (this.cursors.right.isDown) {
-    //   this.player.setVelocityX(500);
+    // else if (this.cursors.right.isDown && !this.dontMove) {
+    //   this.player.setVelocityX(160);
     //   this.player.anims.play('right', true);
     // }
 
@@ -114,9 +108,28 @@ export class Game extends Scene {
     //   this.player.anims.play('turn');
     // }
 
-    // if (this.cursors.space.isDown && this.player.body.touching.down) {
-    //   this.player.setVelocityY(-600);
+    // if (this.cursors.up.isDown && this.player.body.touching.down && !this.dontMove) {
+    //   this.player.setVelocityY(-300);
     // }
+
+    // ***** DEV SPEED
+    if (this.cursors.left.isDown && !this.dontMove) {
+      this.player.setVelocityX(-1000);
+      this.player.anims.play('left', true);
+    }
+
+    else if (this.cursors.right.isDown && !this.dontMove) {
+      this.player.setVelocityX(1000);
+      this.player.anims.play('right', true);
+    }
+
+    else {
+      this.player.setVelocityX(0);
+      this.player.anims.play('turn');
+    }
+
+    if (this.cursors.up.isDown && this.player.body.touching.down && !this.dontMove) {
+      this.player.setVelocityY(-600);
+    }
   }
 }
-
