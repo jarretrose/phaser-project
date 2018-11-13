@@ -14,7 +14,7 @@ export class Game extends Scene {
     })
     this.buffers = null
     this.player = null
-    // this.cursors = null
+    this.cursors = null
     this.crates = null
     this.music = null
     this.scroll = null
@@ -25,6 +25,7 @@ export class Game extends Scene {
   }
 
   create() {
+    
     this.music = this.sound.add('theme')
     this.music.loop = true
     this.music.play()

@@ -9,28 +9,33 @@ export class Preloader extends Scene {
   }
   preload() {
 
+    // ********** Progress Bar
     this.load.on('progress', this.onLoadProgress, this)
     this.load.on('complete', this.onLoadComplete, this)
     this.createProgressBar();
 
-    this.load.image('buffer', 'assets/buffer.png')
-    this.load.image('buffer2', 'assets/buffer2.png')
-    this.load.image('buffer3', 'assets/buffer3.png')
-    this.load.image('mountains', 'assets/mountains.png')
-    this.load.image('mountain', 'assets/mountain.png')
-    this.load.image('blurrymountain', 'assets/blurrymountain.png')
-    this.load.image('title', 'assets/title.png')
-    this.load.image('treehouse', 'assets/treehouse.png')
-    this.load.image('crate', 'assets/crate.png')
-    this.load.image('smallscroll', 'assets/smallscroll.png')
-    this.load.image('scroll', 'assets/scroll.png')
-    this.load.image('guard', 'assets/guard1small.png')
-    this.load.spritesheet('player', 'assets/player.png', { frameWidth: 32, frameHeight: 48 });
-    this.load.audio('logintheme', ['assets/emotional_piano.wav'])
-    this.load.audio('theme', ['assets/voyager.wav'])
+    // ********** Preload Images
+    this.load.image('buffer', 'assets/images/buffer.png')
+    this.load.image('buffer2', 'assets/images/buffer2.png')
+    this.load.image('buffer3', 'assets/images/buffer3.png')
+    this.load.image('mountains', 'assets/images/mountains.png')
+    this.load.image('mountain', 'assets/images/mountain.png')
+    this.load.image('blurrymountain', 'assets/images/blurrymountain.png')
+    this.load.image('treehouse', 'assets/images/treehouse.png')
+    this.load.image('crate', 'assets/images/crate.png')
+    this.load.image('smallscroll', 'assets/images/smallscroll.png')
+    this.load.image('scroll', 'assets/images/scroll.png')
+    this.load.image('guard', 'assets/images/guard1small.png')
+    this.load.spritesheet('player', 'assets/images/player.png', { frameWidth: 32, frameHeight: 48 });
+
+    // ********** Preload Audio
+    this.load.audio('logintheme', ['assets/audio/emotional_piano.wav'])
+    this.load.audio('theme', ['assets/audio/voyager.wav'])
+
   }
 
   create() {
+    // ********** Starts Login Scene
     this.scene.start('login')
 
     this.anims.create({
