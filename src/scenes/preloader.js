@@ -24,6 +24,7 @@ export class Preloader extends Scene {
     this.load.image('smallscroll', 'assets/smallscroll.png')
     this.load.image('scroll', 'assets/scroll.png')
     this.load.spritesheet('player', 'assets/player.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.audio('logintheme', ['assets/emotional_piano.wav'])
     this.load.audio('theme', ['assets/voyager.wav'])
   }
 

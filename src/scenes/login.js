@@ -6,6 +6,10 @@ export class Login extends Scene {
   }
 
   create() {
+    // this.music = this.sound.add('logintheme')
+    // this.music.loop = true
+    // this.music.play()
+
     this.mountain = this.add.image(400, 300, 'mountain')
     this.title = this.add.image(400, 300, 'title')
     this.cursors = this.input.keyboard.createCursorKeys();
