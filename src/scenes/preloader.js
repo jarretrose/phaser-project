@@ -23,6 +23,7 @@ export class Preloader extends Scene {
     this.load.image('crate', 'assets/crate.png')
     this.load.image('smallscroll', 'assets/smallscroll.png')
     this.load.image('scroll', 'assets/scroll.png')
+    this.load.image('guard', 'assets/guard1small.png')
     this.load.spritesheet('player', 'assets/player.png', { frameWidth: 32, frameHeight: 48 });
     this.load.audio('logintheme', ['assets/emotional_piano.wav'])
     this.load.audio('theme', ['assets/voyager.wav'])
@@ -30,6 +31,33 @@ export class Preloader extends Scene {
 
   create() {
     this.scene.start('login')
+
+    this.anims.create({
+      key: 'left',
+      frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1
+    });
+  
+    this.anims.create({
+      key: 'turn',
+      frames: [{ key: 'player', frame: 4 }],
+      frameRate: 20
+    });
+  
+    this.anims.create({
+      key: 'right',
+      frames: this.anims.generateFrameNumbers('player', { start: 5, end: 8 }),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: 'faceright',
+      frames: [{ key: 'player', frame: 5 }],
+      frameRate: 20
+    });
+
   }
 
   createProgressBar() {

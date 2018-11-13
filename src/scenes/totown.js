@@ -1,9 +1,9 @@
-import { Scene } from 'phaser'
+import Phaser, { Scene } from 'phaser'
 
-export class Game extends Scene {
+export class ToTown extends Scene {
   constructor() {
     super({
-      key: 'game',
+      key: 'totown',
       physics: {
         default: 'arcade',
         arcade: {
@@ -15,19 +15,12 @@ export class Game extends Scene {
     this.buffers = null
     this.player = null
     this.cursors = null
-    this.crates = null
     this.music = null
     this.scroll = null
-    this.smallscroll = null
     this.guard = null
-
-    this.guardSaidNo = false
   }
 
   create() {
-    this.music = this.sound.add('theme')
-    this.music.loop = true
-    this.music.play()
 
     this.physics.world.bounds.width = 2400;
     this.physics.world.bounds.height = 600;
@@ -39,41 +32,24 @@ export class Game extends Scene {
     this.mountains = this.add.image(1200, 300, 'mountains')
     this.treehouse = this.add.image(800, 350, 'treehouse')
 
-    this.crates = this.physics.add.group()
-    this.crates.create(2200, 545, 'crate').setDrag(10000, 0).setCollideWorldBounds(true)
-
-    this.smallscroll = this.physics.add.image(1550, 300, 'smallscroll')
-
-    this.player = this.physics.add.sprite(50, 560, 'player').setCollideWorldBounds(true)
+    this.player = this.physics.add.sprite(1550, 410, 'player').setCollideWorldBounds(true)
 
     this.guard = this.physics.add.sprite(2350, 410, 'guard').setCollideWorldBounds(true)
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.physics.add.collider(this.player, this.buffers)
-    this.physics.add.collider(this.player, this.crates)
-    this.physics.add.collider(this.crates, this.buffers)
-    this.physics.add.collider(this.smallscroll, this.buffers)
     this.physics.add.collider(this.guard, this.buffers)
-    this.physics.add.collider(this.player, this.guard, this.guardNo, null, this)
+    this.physics.add.collider(this.player, this.guard, this.guardYes, null, this)
 
-    this.physics.add.overlap(this.player, this.smallscroll, this.kindfist, null, this)
 
     this.cameras.main.setBounds(0, 0, 2400, 600);
     this.cameras.main.startFollow(this.player)
 
   }
 
-  guardNo(player, guard) {
-    if (!this.guardSaidNo) {
-      console.log('Sorry, you cannot pass.')
-      this.guardSaidNo = true;
-    }
-  }
-
-  kindfist(player, smallscroll) {
-    smallscroll.destroy()
-    this.scene.start('kindfist')
+  guardYes(player, guard) {
+    console.log('YES')
   }
 
   update() {
