@@ -19,6 +19,7 @@ export class ToTown extends Scene {
     this.scroll = null
     this.guard = null
     this.gate = null
+    this.cameras = null
 
     this.guardSaidYes = false
   }
@@ -51,7 +52,9 @@ export class ToTown extends Scene {
     this.physics.add.overlap(this.player, this.gate, this.throughGate, null, this)
 
     this.cameras.main.setBounds(0, 0, 2400, 600);
+    this.cameras.main.fadeIn(2000)
     this.cameras.main.startFollow(this.player)
+
 
   }
 

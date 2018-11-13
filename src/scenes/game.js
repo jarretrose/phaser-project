@@ -60,6 +60,7 @@ export class Game extends Scene {
     this.physics.add.overlap(this.player, this.smallscroll, this.kindfist, null, this)
 
     this.cameras.main.setBounds(0, 0, 2400, 600);
+    this.cameras.main.fadeIn(2000)
     this.cameras.main.startFollow(this.player)
 
   }
