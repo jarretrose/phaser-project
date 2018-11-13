@@ -14,7 +14,7 @@ export class Game extends Scene {
     })
     this.buffers = null
     this.player = null
-    this.cursors = null
+    // this.cursors = null
     this.crates = null
     this.music = null
     this.scroll = null
@@ -93,7 +93,7 @@ export class Game extends Scene {
       this.player.anims.play('turn');
     }
 
-    if (this.cursors.space.isDown && this.player.body.touching.down) {
+    if (this.cursors.up.isDown && this.player.body.touching.down) {
       this.player.setVelocityY(-300);
     }
 
