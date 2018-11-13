@@ -77,33 +77,13 @@ export class Game extends Scene {
   }
 
   update() {
-    // if (this.cursors.left.isDown) {
-    //   this.player.setVelocityX(-160);
-    //   this.player.anims.play('left', true);
-    // }
-
-    // else if (this.cursors.right.isDown) {
-    //   this.player.setVelocityX(160);
-    //   this.player.anims.play('right', true);
-    // }
-
-    // else {
-    //   this.player.setVelocityX(0);
-    //   this.player.anims.play('turn');
-    // }
-
-    // if (this.cursors.space.isDown && this.player.body.touching.down) {
-    //   this.player.setVelocityY(-300);
-    // }
-
-    // ***** DEV SPEED
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-500);
+      this.player.setVelocityX(-160);
       this.player.anims.play('left', true);
     }
 
     else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(500);
+      this.player.setVelocityX(160);
       this.player.anims.play('right', true);
     }
 
@@ -113,8 +93,28 @@ export class Game extends Scene {
     }
 
     if (this.cursors.space.isDown && this.player.body.touching.down) {
-      this.player.setVelocityY(-600);
+      this.player.setVelocityY(-300);
     }
+
+    // ***** DEV SPEED
+    // if (this.cursors.left.isDown) {
+    //   this.player.setVelocityX(-500);
+    //   this.player.anims.play('left', true);
+    // }
+
+    // else if (this.cursors.right.isDown) {
+    //   this.player.setVelocityX(500);
+    //   this.player.anims.play('right', true);
+    // }
+
+    // else {
+    //   this.player.setVelocityX(0);
+    //   this.player.anims.play('turn');
+    // }
+
+    // if (this.cursors.space.isDown && this.player.body.touching.down) {
+    //   this.player.setVelocityY(-600);
+    // }
   }
 }
 
