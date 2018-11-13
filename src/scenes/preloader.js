@@ -3,8 +3,16 @@ import Phaser, { Scene } from 'phaser'
 export class Preloader extends Scene {
   constructor() {
     super({ key: 'preloader' })
+    this.progressBar = null;
+    this.progressRect = null;
+    this.progressCompleteRect = null;
   }
   preload() {
+
+    this.load.on('progress', this.onLoadProgress, this)
+    this.load.on('complete', this.onLoadComplete, this)
+    this.createProgressBar();
+
     this.load.image('buffer', 'assets/buffer.png')
     this.load.image('buffer2', 'assets/buffer2.png')
     this.load.image('mountains', 'assets/mountains.png')
@@ -20,8 +28,36 @@ export class Preloader extends Scene {
   }
 
   create() {
-    // this.scene.start('game')
     this.scene.start('login')
+  }
+
+  createProgressBar() {
+    let Rectangle = Phaser.Geom.Rectangle;
+    let main = Rectangle.Clone(this.cameras.main);
+
+    this.progressRect = new Rectangle(0, 0, main.width / 2, 50);
+    Rectangle.CenterOn(this.progressRect, main.centerX, main.centerY);
+
+    this.progressCompleteRect = Phaser.Geom.Rectangle.Clone(this.progressRect);
+
+    this.progressBar = this.add.graphics();
+  }
+
+  onLoadComplete(loader) {
+    this.scene.start('login');
+    this.scene.shutdown();
+  }
+
+  onLoadProgress(progress) {
+    let color = (0xFFFF00);
+
+    this.progressRect.width = progress * this.progressCompleteRect.width;
+    this.progressBar
+      .clear()
+      .fillStyle(0x222222)
+      .fillRectShape(this.progressCompleteRect)
+      .fillStyle(color)
+      .fillRectShape(this.progressRect);
   }
 
 }
