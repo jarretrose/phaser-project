@@ -6,7 +6,7 @@ export class Login extends Scene {
   }
 
   create() {
-    this.mountains = this.add.image(400, 300, 'mountains')
+    this.mountain = this.add.image(400, 300, 'mountain')
     this.title = this.add.image(400, 300, 'title')
     this.cursors = this.input.keyboard.createCursorKeys();
   }

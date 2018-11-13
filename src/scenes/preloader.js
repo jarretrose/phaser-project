@@ -8,6 +8,8 @@ export class Preloader extends Scene {
     this.load.image('buffer', 'assets/buffer.png')
     this.load.image('buffer2', 'assets/buffer2.png')
     this.load.image('mountains', 'assets/mountains.png')
+    this.load.image('mountain', 'assets/mountain.png')
+    this.load.image('blurrymountain', 'assets/blurrymountain.png')
     this.load.image('title', 'assets/title.png')
     this.load.image('treehouse', 'assets/treehouse.png')
     this.load.image('crate', 'assets/crate.png')

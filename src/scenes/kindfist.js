@@ -2,11 +2,14 @@ import Phaser, { Scene } from 'phaser'
 
 export class KindFist extends Scene {
   constructor() {
-    super({ key: 'kindfist' })
+    super({
+      key: 'kindfist'
+    })
   }
 
   create() {
-    this.image.add(400, 300, 'scroll')
+    this.mountains = this.add.image(400, 300, 'blurrymountain')
+    this.scroll = this.add.image(400, 300, 'scroll')
   }
 
   update() {
