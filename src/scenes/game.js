@@ -40,13 +40,13 @@ export class Game extends Scene {
     this.treehouse = this.add.image(800, 350, 'treehouse')
 
     this.crates = this.physics.add.group()
-    this.crates.create(2200, 545, 'crate').setDrag(10000, 0).setCollideWorldBounds(true)
+    this.crates.create(600, 545, 'crate').setDrag(10000, 0).setCollideWorldBounds(true)
 
     this.smallscroll = this.physics.add.image(1550, 300, 'smallscroll')
 
     this.player = this.physics.add.sprite(50, 560, 'player').setCollideWorldBounds(true)
 
-    this.guard = this.physics.add.sprite(2350, 410, 'guard').setCollideWorldBounds(true)
+    this.guard = this.physics.add.sprite(2200, 410, 'guard').setDrag(10000, 0).setCollideWorldBounds(true)
 
     this.cursors = this.input.keyboard.createCursorKeys();
 

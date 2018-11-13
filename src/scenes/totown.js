@@ -18,6 +18,9 @@ export class ToTown extends Scene {
     this.music = null
     this.scroll = null
     this.guard = null
+    this.gate = null
+
+    this.guardSaidYes = false
   }
 
   create() {
@@ -29,27 +32,40 @@ export class ToTown extends Scene {
     this.buffers.create(1200, 600, 'buffer');
     this.buffers.create(1600, 440, 'buffer2')
 
-    this.mountains = this.add.image(1200, 300, 'mountains')
+    this.gate = this.physics.add.staticGroup();
+    this.gate.create(2400, 410, 'buffer3')
+
+    this.mountains = this.add.image(1200, 300, 'mountains') 
     this.treehouse = this.add.image(800, 350, 'treehouse')
 
     this.player = this.physics.add.sprite(1550, 410, 'player').setCollideWorldBounds(true)
 
-    this.guard = this.physics.add.sprite(2350, 410, 'guard').setCollideWorldBounds(true)
+    this.guard = this.physics.add.sprite(2200, 410, 'guard').setDrag(10000, 0).setCollideWorldBounds(true)
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.physics.add.collider(this.player, this.buffers)
     this.physics.add.collider(this.guard, this.buffers)
-    this.physics.add.collider(this.player, this.guard, this.guardYes, null, this)
+    this.guardCollider = this.physics.add.collider(this.player, this.guard, this.guardYes, null, this)
 
+    this.physics.add.overlap(this.player, this.gate, this.throughGate, null, this)
 
     this.cameras.main.setBounds(0, 0, 2400, 600);
     this.cameras.main.startFollow(this.player)
 
   }
 
-  guardYes(player, guard) {
-    console.log('YES')
+  guardYes(player, guard) { 
+    if (!this.guardSaidYes) {
+      console.log('OK, you can go through.')
+      this.guardSaidYes = true;
+      this.guardCollider.destroy()
+    }
+  }
+
+  throughGate(player, gate) {
+    console.log('I am overlapping with the gate')
+    this.scene.start('town')
   }
 
   update() {
